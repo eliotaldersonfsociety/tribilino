@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import ProductForm from "@/app/panel/productos/_components/product-form";
+import ProductForm from "@/app/(admin)/dashboards/productos/_components/product-form";
 import { SVGCartLoader } from "@/components/loader/page";
 
 async function getProduct(id: string) {
