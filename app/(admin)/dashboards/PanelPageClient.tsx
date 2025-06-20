@@ -11,7 +11,8 @@ interface PanelPageClientProps {
   name: string;
   lastname: string;
   email: string;
-  hayProductosInvalidos: boolean;
+  hayProductosInvalidos?: boolean;
+  wishlistCount: number;
 }
 
 const PanelPageClient: React.FC<PanelPageClientProps> = ({

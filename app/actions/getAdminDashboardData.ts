@@ -1,6 +1,6 @@
 'use server';
 
-import { auth } from '@clerk/nextjs/server';
+import { auth, currentUser } from '@clerk/nextjs/server';
 import { eq, desc, sql } from 'drizzle-orm';
 import db from '@/lib/db/index';
 import { wishlist } from '@/lib/wishlist/schema';
@@ -12,6 +12,11 @@ export async function getAdminDashboardData() {
   console.log("USER ID DESDE SERVER:", userId);
 
   if (!userId) throw new Error('No autorizado');
+
+  const user = await currentUser();
+  const name = user?.firstName ?? '';
+  const lastname = user?.lastName ?? '';
+  const email = user?.emailAddresses?.[0]?.emailAddress ?? '';
 
   // ✅ 1. Wishlist del usuario
   const wishlistItems = await db.wishlist
