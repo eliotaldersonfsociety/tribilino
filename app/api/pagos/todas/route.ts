@@ -20,8 +20,7 @@ export async function GET(req: Request) {
     const purchases = await db.epayco
       .select({
         id: epaycoOrders.id,
-        referenceCode: epaycoOrders.referenceCode,
-        description: epaycoOrders.description,
+        referenceCode: epaycoOrders.reference_code,
         total: epaycoOrders.total,
         created_at: epaycoOrders.created_at,
         updated_at: epaycoOrders.updated_at,

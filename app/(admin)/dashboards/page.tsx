@@ -1,75 +1,49 @@
-'use server';
+import { auth, currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import { getAdminDashboardData } from "@/app/actions/getAdminDashboardData";
+import PanelPageClient from "./PanelPageClient";
 
-import { auth } from '@clerk/nextjs/server';
-import { eq } from 'drizzle-orm';
-import db from '@/lib/db/index';
-import { wishlist } from '@/lib/wishlist/schema';
-import { getVisitasStats } from "@/app/helpers/getVisitasStats";
-import { epaycoOrders } from '@/lib/epayco/schema';
+export default async function PanelPage() {
+  const { userId } = await auth();
+  if (!userId) return redirect("/");
 
-export interface PanelPageClientProps {
-  wishlistCount: number;
-  balance: number;
-  numeroDeCompras: number;
-  lastPurchaseDate: string | null;
-  visits: number;
-  name: string;
-  lastname: string;
-  email: string;
-}
+  // Validación de permisos si es necesario (esto se puede mejorar con roles reales)
+  const isAdmin = true; // Aquí deberías verificar desde Clerk o metadata
+  if (!isAdmin) return <div>No tienes acceso a este panel.</div>;
 
-export async function getAdminDashboardData(): Promise<PanelPageClientProps> {
-  const { userId, sessionClaims } = await auth();
+  // Obtener datos del usuario desde Clerk
+  const user = await currentUser();
+  const name = user?.firstName ?? "";
+  const lastname = user?.lastName ?? "";
+  const email = user?.emailAddresses[0]?.emailAddress ?? "";
 
-  if (!userId) throw new Error('No autorizado');
-
-const rawName = sessionClaims?.first_name;
-const rawLastName = sessionClaims?.last_name;
-const rawEmail = sessionClaims?.email;
-
-const name = typeof rawName === 'string' ? rawName : 'Usuario';
-const lastname = typeof rawLastName === 'string' ? rawLastName : '';
-const email = typeof rawEmail === 'string' ? rawEmail : '';
-
-
-
-  const wishlistItems = await db.wishlist
-    .select()
-    .from(wishlist)
-    .where(eq(wishlist.userId, userId));
-  const wishlistCount = wishlistItems.length;
-
-  const approvedOrders = (
-    await db.epayco
-      .select()
-      .from(epaycoOrders)
-      .where(eq(epaycoOrders.clerk_id, userId))
-  ).filter(order => order.status === 'APPROVED')
-    .sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime());
-
-  const numeroDeCompras = approvedOrders.length;
-  const balance = approvedOrders.reduce((sum, o) => sum + Number(o.amount), 0);
-
-  const rawUpdatedAt = approvedOrders[0]?.updated_at;
-  let lastPurchaseDate: string | null = null;
-  if (typeof rawUpdatedAt === 'string') {
-    try {
-      lastPurchaseDate = new Date(rawUpdatedAt).toISOString();
-    } catch {
-      console.warn('⚠️ Fecha inválida:', rawUpdatedAt);
-    }
-  }
-
-  const { total: visits } = await getVisitasStats();
-
-  return {
-    wishlistCount,
+  // Obtener todos los datos del dashboard desde una sola acción
+  const {
     balance,
     numeroDeCompras,
     lastPurchaseDate,
+    wishlistCount,
     visits,
-    name,
-    lastname,
-    email
-  };
+    //purchases,
+    //hayProductosInvalidos,
+    //currentPage,
+    //totalPages,
+  } = await getAdminDashboardData();
+
+  return (
+    <PanelPageClient
+      saldo={balance}
+      numeroDeCompras={numeroDeCompras}
+      lastPurchaseDate={lastPurchaseDate}
+      wishlistCount={wishlistCount}
+      visits={visits}
+      name={name}
+      lastname={lastname}
+      email={email}
+      //currentPurchases={purchases}
+      //hayProductosInvalidos={hayProductosInvalidos}
+      //currentPage={currentPage}
+      //totalPages={totalPages}
+    />
+  );
 }
