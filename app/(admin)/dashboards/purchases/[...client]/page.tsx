@@ -1,13 +1,13 @@
+// app/(admin)/dashboards/purchases/[...client]/page.tsx
+
 import { getAllPurchases } from "@/app/helpers/getAllPurchases";
 import PurchasesClientPage from './PurchasesClientPage';
 
-interface Props {
-  searchParams: {
-    page?: string;
-  };
-}
-
-export default async function PurchasesPage({ searchParams }: Props) {
+export default async function PurchasesPage({
+  searchParams,
+}: {
+  searchParams?: { page?: string };
+}) {
   const page = Number(searchParams?.page) || 1;
 
   const { purchases, pagination } = await getAllPurchases({ page });
