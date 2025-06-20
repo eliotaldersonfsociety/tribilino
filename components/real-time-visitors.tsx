@@ -1,26 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getActiveUsersLocal } from "@/app/helpers/getActiveUsersLocal";
-import { getPageViewsLocal } from "@/app/helpers/getPageViewsLocal";
 import { Card, CardContent } from "@/components/ui/card";
 import { Activity, Users } from "lucide-react";
 
-export default function RealTimeVisitorsLocal() {
-  const [activeUsers, setActiveUsers] = useState(0);
-  const [pageViews, setPageViews] = useState(0);
+interface RealTimeVisitorsProps {
+  activeUsers: number;
+  pageViews: number;
+}
 
-  useEffect(() => {
-    const update = () => {
-      setActiveUsers(getActiveUsersLocal());
-      setPageViews(getPageViewsLocal());
-    };
-
-    update();
-    const interval = setInterval(update, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
+export default function RealTimeVisitors({
+  activeUsers,
+  pageViews,
+}: RealTimeVisitorsProps) {
   return (
     <Card>
       <CardContent className="pt-6 pb-4">
@@ -42,7 +33,9 @@ export default function RealTimeVisitorsLocal() {
               <Activity className="h-8 w-8 text-green-600 dark:text-green-400" />
             </div>
             <div>
-              <h3 className="text-xl font-semibold text-green-700 dark:text-green-400">{pageViews}</h3>
+              <h3 className="text-xl font-semibold text-green-700 dark:text-green-400">
+                {pageViews}
+              </h3>
               <p className="text-sm text-green-600 dark:text-green-500">Vistas de página / min</p>
             </div>
           </div>
