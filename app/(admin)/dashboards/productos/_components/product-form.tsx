@@ -187,7 +187,7 @@ export default function ProductForm({ initialData, id }: ProductFormProps) {
         throw new Error(errorData.error || "Error guardando producto")
       }
 
-      router.push("/panel/productos")
+      router.push("/dashboards/productos")
       router.refresh()
     } catch (error) {
       console.error("Error:", error)

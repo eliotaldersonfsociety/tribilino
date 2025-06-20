@@ -1,5 +1,5 @@
 import type React from "react"
-import "../globals.css"
+import "@/app/globals.css"
 import "./dashboard-variables.css"
 
 export default function DashboardLayout({
