@@ -1,30 +1,33 @@
-"use client"
+'use client';
 
-import { useEffect, useState } from "react"
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Cell, ResponsiveContainer } from "recharts"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent } from "@/components/ui/tabs"
-import RealTimeVisitors from "./real-time-visitors"
-import { usePageView } from "@/hooks/usePageView"
-import { getVisitStats, getActiveUserCount, getActivePages } from "@/app/helpers/trackAnalytics"
+import { useEffect, useState } from 'react';
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Cell, ResponsiveContainer
+} from 'recharts';
+import {
+  Card, CardContent, CardDescription, CardHeader, CardTitle
+} from '@/components/ui/card';
+import { Tabs, TabsContent } from '@/components/ui/tabs';
+import RealTimeVisitors from './real-time-visitors';
+import { usePageView } from '@/hooks/usePageView';
+import { getActiveUserCount, getActivePages } from '@/app/helpers/trackAnalytics';
 
-const COLORS = ["#8884d8", "#83a6ed", "#8dd1e1", "#82ca9d", "#a4de6c", "#d0ed57", "#ffc658", "#ff8042"]
+const COLORS = ['#8884d8', '#83a6ed', '#8dd1e1', '#82ca9d', '#a4de6c', '#d0ed57', '#ffc658', '#ff8042'];
 
-export default function WebAnalytics() {
-  usePageView();
-  const [stats, setStats] = useState<{
+interface Props {
+  stats: {
     total: number;
-    rutasCount: {[key: string]: number};
-    countryCount: {[key: string]: number};
-  } | null>(null);
+    rutasCount: { [key: string]: number };
+    countryCount: { [key: string]: number };
+  };
+}
 
-  const [timeRange, setTimeRange] = useState("anual")
-  const [activeUsers, setActiveUsers] = useState(0)
-  const [activePages, setActivePages] = useState(0)
+export default function WebAnalyticsClient({ stats }: Props) {
+  usePageView();
 
-  useEffect(() => {
-    setStats(getVisitStats());
-  }, []);
+  const [timeRange, setTimeRange] = useState('anual');
+  const [activeUsers, setActiveUsers] = useState(0);
+  const [activePages, setActivePages] = useState(0);
 
   useEffect(() => {
     const updateActive = () => {
@@ -37,16 +40,14 @@ export default function WebAnalytics() {
   }, []);
 
   const formatNumber = (number: number | undefined | null) => {
-    if (typeof number !== "number" || isNaN(number)) return "0";
-    if (number >= 1000000) return (number / 1000000).toFixed(1) + "M"
-    if (number >= 1000) return (number / 1000).toFixed(1) + "K"
+    if (typeof number !== 'number' || isNaN(number)) return '0';
+    if (number >= 1000000) return (number / 1000000).toFixed(1) + 'M';
+    if (number >= 1000) return (number / 1000).toFixed(1) + 'K';
     return number.toString();
-  }
+  };
 
-  if (!stats) return <div className="text-center py-10">Cargando estadísticas...</div>
-
-  const pageData = Object.entries(stats.rutasCount || {}).map(([name, visits]) => ({ name, visits: Number(visits) || 0 }));
-  const countryData = Object.entries(stats.countryCount || {}).map(([name, visits]) => ({ name, visits: Number(visits) || 0 }));
+  const pageData = Object.entries(stats.rutasCount).map(([name, visits]) => ({ name, visits }));
+  const countryData = Object.entries(stats.countryCount).map(([name, visits]) => ({ name, visits }));
 
   return (
     <div className="grid gap-6">
@@ -59,13 +60,13 @@ export default function WebAnalytics() {
           <Card className="md:col-span-3">
             <CardHeader>
               <CardTitle>Total de Visitas</CardTitle>
-              <CardDescription>{formatNumber(stats?.total ?? 0)} visitas en total</CardDescription>
+              <CardDescription>{formatNumber(stats.total)} visitas en total</CardDescription>
             </CardHeader>
             <CardContent>
               <TabsContent value="anual" className="mt-0">
                 <div className="w-full h-[220px] sm:h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={[{ name: "Visitas", visits: stats?.total ?? 0 }]} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                    <BarChart data={[{ name: 'Visitas', visits: stats.total }]} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
                       <CartesianGrid strokeDasharray="3 3" vertical={false} />
                       <XAxis dataKey="name" />
                       <YAxis tickFormatter={formatNumber} />
