@@ -1,11 +1,13 @@
 import { getProductById } from "@/app/helpers/getProductsOne";
 import ProductPageClient from "./ProductPageClient";
 
-export default async function ProductPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+interface Props {
+  params: {
+    id: string;
+  };
+}
+
+export default async function ProductPage({ params }: Props) {
   const id = parseInt(params.id, 10);
 
   const product = await getProductById(id);
