@@ -66,7 +66,7 @@ export default function PurchasesClientPage({ initialPurchases }: { initialPurch
   };
 
   const goToPage = (page: number) => {
-    router.push(`/dashboards/purchases?page=${page}`);
+    window.location.href = `/dashboards/purchases?page=${page}`;
   };
 
   return (
