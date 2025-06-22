@@ -66,7 +66,8 @@ export default function PurchasesClientPage({ initialPurchases }: { initialPurch
   };
 
   const goToPage = (page: number) => {
-    window.location.href = `/dashboards/purchases?page=${page}`;
+    router.push(`/dashboards/purchases/cliente?page=${page}`);
+    router.refresh(); // Esto fuerza a refetchear los datos del servidor
   };
 
   return (
