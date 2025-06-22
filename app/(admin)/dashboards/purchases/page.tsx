@@ -1,14 +1,12 @@
-import { getAllPurchases } from "@/app/helpers/getAllPurchases";
-import PurchasesClientPage from "./PurchasesClientPage";
+// app/panel/purchases/page.tsx
+"use client"
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-// Evita usar `PageProps` de Next, define tú el tipo correcto
-export default async function PurchasesPage({
-  searchParams,
-}: {
-  searchParams?: { pagina?: string };
-}) {
-  const page = Number(searchParams?.pagina || 1);
-  const initialPurchases = await getAllPurchases({ page });
-
-  return <PurchasesClientPage initialPurchases={initialPurchases} />;
+export default function PurchasesRedirect() {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/dashboards/purchases/cliente"); // Asegúrate de que esta ruta sea correcta
+  }, [router]);
+  return null;
 }
