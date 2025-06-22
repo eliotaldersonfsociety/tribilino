@@ -200,7 +200,6 @@ export default function ProductForm({ initialData, id }: ProductFormProps) {
   }
 
   return (
-    <>
     <form onSubmit={handleSubmit} className="space-y-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="md:col-span-2 space-y-8">
@@ -504,10 +503,6 @@ export default function ProductForm({ initialData, id }: ProductFormProps) {
         </Button>
       </div>
     </form>
-    <DashboardLayouts>
-      <></>
-    </DashboardLayouts>
-    </>
   )
 }
 
