@@ -32,7 +32,7 @@ const PanelPageClient: React.FC<PanelPageClientProps> = ({
           Error: productos inválidos en tu carrito.
         </div>
       ) : (
-      <div className="w-full max-w-[1200px] mx-auto flex flex-col gap-4 p-4 md:p-8">
+      <div className="w-full max-w-[1200px] mx-auto flex flex-col gap-4 p-4 md:p-8 bg-gray-100">
         <div className="flex flex-col gap-4 p-4 md:p-8">
           {/* Cards principales */}
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
