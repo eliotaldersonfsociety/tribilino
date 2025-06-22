@@ -365,7 +365,7 @@ export default function NewProduct() {
   }
 
   return (
-    <DashboardLayouts>
+    <>
     <div className="flex min-h-screen flex-col">
       <header className="border-b">
         <div className="container flex h-16 items-center px-4 sm:px-6">
@@ -858,6 +858,9 @@ export default function NewProduct() {
         </div>
       </main>
     </div>
+    <DashboardLayouts>
+      <></>
     </DashboardLayouts>
+    </>
   )
 }
