@@ -1,5 +1,5 @@
 import { getAllPurchases } from "@/app/helpers/getAllPurchases";
-import PurchasesClientPage from "../PurchasesClientPage";
+import PurchasesClientPage from "./PurchasesClientPage";
 
 // Evita usar `PageProps` de Next, define tú el tipo correcto
 export default async function PurchasesPage({
