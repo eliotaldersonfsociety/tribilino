@@ -13,6 +13,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch"
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { DashboardLayouts } from "@/components/dashboard-layouts"
+import DashboardLayout from '../../layout';
 
 interface ProductFormProps {
   initialData?: {
@@ -198,6 +200,7 @@ export default function ProductForm({ initialData, id }: ProductFormProps) {
   }
 
   return (
+    <>
     <form onSubmit={handleSubmit} className="space-y-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="md:col-span-2 space-y-8">
@@ -501,6 +504,10 @@ export default function ProductForm({ initialData, id }: ProductFormProps) {
         </Button>
       </div>
     </form>
+    <DashboardLayouts>
+      <></>
+    </DashboardLayouts>
+    </>
   )
 }
 

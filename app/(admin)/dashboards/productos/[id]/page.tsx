@@ -7,6 +7,8 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ProductForm from "@/app/(admin)/dashboards/productos/_components/product-form";
 import { SVGCartLoader } from "@/components/loader/page";
+import { DashboardLayouts } from "@/components/dashboard-layouts"
+import DashboardLayout from '../../layout';
 
 async function getProduct(id: string) {
   const res = await fetch(`/api/product/${id}`, { cache: "no-store" });
@@ -51,6 +53,7 @@ export default function EditProduct() {
   if (!product) return <p className="text-center mt-10">Producto no encontrado</p>;
 
   return (
+    <>
     <div className="container mx-auto py-8">
       <div className="flex items-center gap-4 mb-6">
         <Link href={`/product/${id}`}>
@@ -63,5 +66,9 @@ export default function EditProduct() {
 
       <ProductForm initialData={product} />
     </div>
+    <DashboardLayouts>
+      <></>
+    </DashboardLayouts>
+    </>
   );
 }
