@@ -1,11 +1,14 @@
 import { getAllPurchases } from "@/app/helpers/getAllPurchases";
 import PurchasesClientPage from "./PurchasesClientPage";
 
-export default async function PurchasesPage({
-  searchParams,
-}: {
-  searchParams?: { pagina?: string };
-}) {
+// ✅ Usa PageProps correctamente tipado
+interface PageProps {
+  searchParams?: {
+    pagina?: string;
+  };
+}
+
+export default async function PurchasesPage({ searchParams }: PageProps) {
   const page = parseInt(searchParams?.pagina || '1', 10);
   const initialPurchases = await getAllPurchases({ page });
 
