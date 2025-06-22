@@ -1,16 +1,11 @@
 import { getProductById } from "@/app/helpers/getProductsOne";
 import ProductPageClient from "./ProductPageClient";
 
-interface Props {
-  params: {
-    id: string;
-  };
-}
+export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params; // ✅ Aquí se resuelve la promesa
+  const productId = parseInt(id, 10);
 
-export default async function ProductPage({ params }: Props) {
-  const id = parseInt(params.id, 10);
-
-  const product = await getProductById(id);
+  const product = await getProductById(productId);
 
   if (!product) {
     return <div className="text-center py-10">Producto no encontrado</div>;
