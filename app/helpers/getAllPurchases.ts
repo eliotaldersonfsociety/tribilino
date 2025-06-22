@@ -42,7 +42,7 @@ export async function getAllPurchases({ page = 1, itemsPerPage = 10 }: Params) {
       items: sql`json_group_array(json_object(
         'id', ${epaycoOrderItems.id},
         'product_id', ${epaycoOrderItems.product_id},
-        'name', ${epaycoOrderItems.title},
+        'title', ${epaycoOrderItems.title},
         'price', ${epaycoOrderItems.price},
         'quantity', ${epaycoOrderItems.quantity},
         'image', ${epaycoOrderItems.image},
@@ -64,17 +64,14 @@ export async function getAllPurchases({ page = 1, itemsPerPage = 10 }: Params) {
       const parsed = JSON.parse(purchase.items as unknown as string);
       if (Array.isArray(parsed)) items = parsed;
     } catch (e) {
-      console.error('Error al parsear items JSON:', e);
+      console.error('❌ Error al parsear items JSON:', e);
     }
-
-    const processingDateFormatted =
-      typeof purchase.processing_date === 'number' && !isNaN(purchase.processing_date)
-        ? new Date(purchase.processing_date).toISOString()
-        : null;
 
     return {
       ...purchase,
-      processing_date: processingDateFormatted,
+      processing_date: purchase.processing_date
+        ? new Date(purchase.processing_date).toISOString()
+        : null,
       items,
       subtotal: purchase.tax_base || 0,
       taxes: purchase.tax || 0,

@@ -25,23 +25,23 @@ import { useUser } from "@clerk/nextjs";
 interface Product {
   id: number;
   title: string;
-  description: string;
+  description: string | null;
   price: number;
-  compareAtPrice?: number;
-  costPerItem?: number;
-  vendor?: string;
-  productType?: string;
-  status?: boolean; // Indica si está en stock
-  category?: string;
-  tags?: string;
-  sku?: string;
-  barcode?: string;
-  quantity?: number; // Cantidad disponible
+  compareAtPrice?: number | null;
+  costPerItem?: number | null;
+  vendor?: string | null;
+  productType?: string | null;
+  status?: boolean;
+  category?: string | null;
+  tags?: string | null;
+  sku?: string | null;
+  barcode?: string | null;
+  quantity?: number;
   trackInventory?: boolean;
-  images: string[]; // Lista de URLs de imágenes
-  sizes?: string[]; // Tallas como S, M, L
-  sizeRange?: { min: number; max: number }; // Rango de tallas numéricas (ej. zapatos)
-  colors?: string[]; // Lista de colores disponibles
+  images: string[];
+  sizes?: string[];
+  sizeRange?: { min: number; max: number };
+  colors?: string[];
 }
 
 // Loader personalizado para Next/Image (opcional)
@@ -198,7 +198,7 @@ export default function ProductDisplay({ product }: { product: Product }) {
       try {
         await navigator.share({
           title: product.title,
-          text: product.description,
+          text: product.description ?? undefined,
           url: window.location.href,
         });
         toast.success("Producto compartido exitosamente");
