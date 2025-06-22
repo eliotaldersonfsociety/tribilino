@@ -1,13 +1,15 @@
-// app/productos/[id]/page.tsx
 import { getProductById } from "@/app/helpers/getProductsOne";
 import ProductPageClient from "./ProductPageClient";
 
-export default async function ProductPage({ params }: { params: { id: string } }) {
+interface Props {
+  params: { id: string };
+}
+
+export default async function ProductPage({ params }: Props) {
   const id = parseInt(params.id, 10);
   const product = await getProductById(id);
 
   if (!product) {
-    // Puedes redirigir o lanzar un error que tu layout maneje
     return <div className="text-center py-10">Producto no encontrado</div>;
   }
 
