@@ -15,6 +15,8 @@ import { ArrowLeft, ImagePlus, Trash } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Loader2 } from "lucide-react"
 import ProductList from '@/components/ProductList'
+import { DashboardLayouts } from "@/components/dashboard-layouts"
+import DashboardLayout from '../layout';
 
 interface Product {
   title: string
@@ -76,9 +78,14 @@ const colorOptions = [
 
 export default function HomePage() {
   return (
+    <>
     <main className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Nuestros Productos</h1>
       <ProductList />
     </main>
+    <DashboardLayouts>
+      <></>
+    </DashboardLayouts>
+    </>
   )
 }
