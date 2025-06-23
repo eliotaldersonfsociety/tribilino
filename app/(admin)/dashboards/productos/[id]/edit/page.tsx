@@ -54,6 +54,9 @@ export default function EditProduct() {
 
   return (
     <>
+    <div className="w-full bg-gray-100 min-h-screen">
+    <div className="w-full max-w-[1200px] mx-auto flex flex-col gap-4 p-4 md:p-8">
+
     <div className="container mx-auto py-8">
       <div className="flex items-center gap-4 mb-6">
         <Link href={`/product/${id}`}>
@@ -69,6 +72,8 @@ export default function EditProduct() {
     <DashboardLayouts>
       <></>
     </DashboardLayouts>
+      </div>
+      </div>
     </>
   );
 }
