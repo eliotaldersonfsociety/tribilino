@@ -25,7 +25,7 @@ export default function UserMenu() {
             className="flex items-center gap-1"
           >
             <LayoutDashboard className="h-4 w-4" />
-            Panel
+            Dashboard
           </Button>
 
           {/* Avatar de Clerk */}
