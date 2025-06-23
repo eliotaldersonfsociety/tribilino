@@ -861,11 +861,12 @@ export default function NewProduct() {
         </div>
       </main>
     </div>
-    </div>
-    </div>
     <DashboardLayouts>
       <></>
     </DashboardLayouts>
+      
+    </div>
+    </div>
     </>
   )
 }
