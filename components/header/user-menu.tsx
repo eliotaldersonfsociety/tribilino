@@ -9,7 +9,7 @@ import { useState } from "react";
 export default function UserMenu() {
   const { isSignedIn, isLoaded } = useUser();
   const router = useRouter();
-  const [loading, setLoading] = useState(false); // estado de carga
+  const [loading, setLoading] = useState(false);
 
   const goToDashboard = () => {
     setLoading(true);
