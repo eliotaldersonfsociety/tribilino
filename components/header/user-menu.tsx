@@ -9,6 +9,11 @@ export default function UserMenu() {
   const { isSignedIn, isLoaded } = useUser();
   const router = useRouter();
 
+  const goToDashboard = () => {
+    console.log("Ir al dashboard");
+    router.push("/dashboards"); // Asegúrate que esta ruta existe
+  };
+
   if (!isLoaded) {
     return <span className="animate-pulse h-5 w-5 bg-gray-300 rounded-full" />;
   }
@@ -17,18 +22,15 @@ export default function UserMenu() {
     <div className="flex items-center gap-2">
       {isSignedIn ? (
         <>
-          {/* Botón personalizado para ir al dashboard */}
           <Button
             variant="secondary"
             size="sm"
-            onClick={() => router.push("/dashboards")}
+            onClick={goToDashboard}
             className="flex items-center gap-1"
           >
             <LayoutDashboard className="h-4 w-4" />
-            Dashboard
+            Panel
           </Button>
-
-          {/* Avatar de Clerk */}
           <UserButton afterSignOutUrl="/" />
         </>
       ) : (
