@@ -1,17 +1,19 @@
 "use client";
 
 import { UserButton, SignInButton, useUser } from "@clerk/nextjs";
-import { User as UserIcon, LayoutDashboard } from "lucide-react";
+import { User as UserIcon, LayoutDashboard, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function UserMenu() {
   const { isSignedIn, isLoaded } = useUser();
   const router = useRouter();
+  const [loading, setLoading] = useState(false); // estado de carga
 
   const goToDashboard = () => {
-    console.log("Ir al dashboard");
-    router.push("/dashboards"); // Asegúrate que esta ruta existe
+    setLoading(true);
+    router.push("/dashboards");
   };
 
   if (!isLoaded) {
@@ -27,9 +29,19 @@ export default function UserMenu() {
             size="sm"
             onClick={goToDashboard}
             className="flex items-center gap-1"
+            disabled={loading}
           >
-            <LayoutDashboard className="h-4 w-4" />
-            Panel
+            {loading ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Cargando...
+              </>
+            ) : (
+              <>
+                <LayoutDashboard className="h-4 w-4" />
+                Panel
+              </>
+            )}
           </Button>
           <UserButton afterSignOutUrl="/" />
         </>
