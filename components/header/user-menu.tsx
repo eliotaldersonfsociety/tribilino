@@ -1,20 +1,36 @@
 "use client";
 
-import { UserButton, SignInButton, useUser } from "@clerk/nextjs";
-import { User as UserIcon, LayoutDashboard, Loader2 } from "lucide-react";
+import {
+  UserButton,
+  SignInButton,
+  useUser
+} from "@clerk/nextjs";
+import {
+  User as UserIcon,
+  LayoutDashboard,
+  Loader2
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export default function UserMenu() {
   const { isSignedIn, isLoaded } = useUser();
   const router = useRouter();
+  const pathname = usePathname(); // 👈 esto detecta la ruta actual
   const [loading, setLoading] = useState(false);
 
   const goToDashboard = () => {
     setLoading(true);
     router.push("/dashboards");
   };
+
+  // 👇 Cuando cambia la ruta, detenemos el loading
+  useEffect(() => {
+    if (pathname === "/dashboards") {
+      setLoading(false);
+    }
+  }, [pathname]);
 
   if (!isLoaded) {
     return <span className="animate-pulse h-5 w-5 bg-gray-300 rounded-full" />;
