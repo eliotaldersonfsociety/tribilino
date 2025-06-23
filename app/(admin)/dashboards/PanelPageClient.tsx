@@ -68,7 +68,7 @@ const PanelPageClient: React.FC<PanelPageClientProps> = ({
               <div className="text-xl sm:text-2xl font-bold">
                 {visits !== null ? visits : 'Cargando...'}
               </div>
-              <div className="text-xs text-muted-foreground">Número de Producto</div>
+              <div className="text-xs text-muted-foreground">Número de Visitas totales/div>
             </div>
 
             {/* Administrador */}
