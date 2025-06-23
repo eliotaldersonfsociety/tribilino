@@ -72,6 +72,7 @@ export default function PurchasesClientPage({ initialPurchases }: { initialPurch
 
   return (
     <>
+      <div className="w-full bg-gray-100 min-h-screen">
       <div className="w-full max-w-[1200px] mx-auto flex flex-col gap-4 p-4 md:p-8">
       <Card>
         <div className="p-4">
@@ -143,6 +144,7 @@ export default function PurchasesClientPage({ initialPurchases }: { initialPurch
         {/* Puedes agregar contenido adicional aquí si lo deseas */}
         <></>
       </DashboardLayouts>
+    </div>
     </div>
     </>
   );
