@@ -366,6 +366,9 @@ export default function NewProduct() {
 
   return (
     <>
+    <div className="w-full bg-gray-100 min-h-screen">
+    <div className="w-full max-w-[1200px] mx-auto flex flex-col gap-4 p-4 md:p-8">
+
     <div className="flex min-h-screen flex-col">
       <header className="border-b">
         <div className="container flex h-16 items-center px-4 sm:px-6">
@@ -857,6 +860,8 @@ export default function NewProduct() {
           </div>
         </div>
       </main>
+    </div>
+    </div>
     </div>
     <DashboardLayouts>
       <></>
